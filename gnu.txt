@@ -1,0 +1,19 @@
+set terminal pdf
+set output "congest.pdf"
+set title "congestion"
+set xlabel "Time(in second)"
+set ylabel "congestion window"
+set style data histogram
+set style fill solid
+set style histogram clustered
+plot "detail.cwnd" using 1:2 with impulse title "old congestion", "detail.cwnd" using 1:3 with lines title "New congestion"
+
+
+
+/waf --run fifth > cwnd.dat 2>&1
+
+gnuplot
+set terminal png size 640,480
+set output "cwnd.png"
+plot "cwnd.dat" using 1:2 title 'Congestion Window' with linespoints
+exit
